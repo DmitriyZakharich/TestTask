@@ -1,0 +1,35 @@
+@startuml
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+ListFragment <-- ListFragmentViewModel
+ListFragmentViewModel <-- DataManager
+DataManager <-- CacheRepositoriesLoader
+DataManager <-- RetrofitRepositoriesLoader
+DataManager <-- CustomRecyclerAdapter
+
+class ListFragment{
+    RecyclerViewAdapter
+    }
+class ListFragmentViewModel{
+    getAdapter()
+}
+class DataManager
+
+class RetrofitRepositoriesLoader {
+    LiveData<CustomRecyclerAdapter?>
+    loadData()
+}
+class CacheRepositoriesLoader{
+    loadData()
+}
+class CustomRecyclerAdapter
+
+
+class CustomRecyclerAdapter{
+    List<RepositoryInfoPOJO>
+    clickListener()
+}
+
+
+@enduml
