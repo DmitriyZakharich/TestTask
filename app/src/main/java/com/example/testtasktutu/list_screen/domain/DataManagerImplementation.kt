@@ -21,41 +21,31 @@ import com.example.testtasktutu.list_screen.presentation.interfaces.DataManagerI
  * вход: context
  * выход: List<RepositoryInfo>
  * */
-class DataManagerImplementation(
-//    private val context: Context,
-//    private val retrofitRepositoriesLoader: RetrofitRepositoriesLoaderInterface
-) : DataManagerInterface {
+class DataManagerImplementation : DataManagerInterface {
 
-    private var _liveData: MutableLiveData<List<RepositoryInfo>>? = null /*by lazy { getData() }*/
+    private var _liveData: MutableLiveData<List<RepositoryInfo>>? = null
     override val liveData: LiveData<List<RepositoryInfo>>? = _liveData
 
-    private val retrofitRepositoriesLoader: RetrofitRepositoriesLoaderInterface = RetrofitRepositoriesLoader()
+    private val retrofitRepositoriesLoader: RetrofitRepositoriesLoaderInterface =
+        RetrofitRepositoriesLoader()
 
     private var query: String? = null
 
-    override fun setQuery(query: String) {
-        this.query = query
-        getData()
-    }
 
-    private fun getData()/*: MutableLiveData<List<RepositoryInfo>>?*/ {
-
+    override fun getData(query: String){
+        _liveData = MutableLiveData<List<RepositoryInfo>>()
         if (checkForInternet()) {
-            retrofitRepositoriesLoader.liveData?.observeForever{
-
+            retrofitRepositoriesLoader.liveData?.observeForever {
                 if (it != null) {
                     _liveData?.value = it
-                } else {
-                    CacheRepositoriesLoader(query!!)
+                } else {                                           //null - из интернета ничего не загрузилось
+                    CacheRepositoriesLoader(query)
                 }
             }
 
-            retrofitRepositoriesLoader.loadData(query!!)
+            retrofitRepositoriesLoader.loadData(query)
 
-
-        } else {
-            CacheRepositoriesLoader(query!!)
-        }
+        } else CacheRepositoriesLoader(query)
     }
 
 
@@ -76,8 +66,7 @@ class DataManagerImplementation(
         } else {
             @Suppress("DEPRECATION") val networkInfo =
                 connectivityManager.activeNetworkInfo ?: return false
-            @Suppress("DEPRECATION")
-            return networkInfo.isConnected
+            @Suppress("DEPRECATION") return networkInfo.isConnected
         }
     }
 }

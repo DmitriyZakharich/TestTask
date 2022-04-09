@@ -18,11 +18,8 @@ class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
 
     override fun loadData(query: String) {
 
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
 
         val requestApiRepositories = retrofit.create(RequestApiRepositories::class.java)
         val call = requestApiRepositories.getRequest(query)
@@ -31,17 +28,12 @@ class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
 
             override fun onFailure(call: Call<List<RepositoryInfo>>, t: Throwable) {}
 
-            override fun onResponse(
-                call: Call<List<RepositoryInfo>>,
-                response: Response<List<RepositoryInfo>>
-            ) {
+            override fun onResponse(call: Call<List<RepositoryInfo>>,
+                    response: Response<List<RepositoryInfo>>) {
 
                 if (response.isSuccessful) {
                     _liveData?.value = response.body()
-                }
-
-//                if (i )
-                error("${response.code()} ${response.message()} ${response.errorBody()}")
+                } else error("${response.code()} ${response.message()} ${response.errorBody()}")
 
 
             }
