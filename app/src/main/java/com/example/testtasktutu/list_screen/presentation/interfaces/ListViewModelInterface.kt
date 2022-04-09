@@ -5,8 +5,8 @@ import com.example.testtasktutu.list_screen.domain.CustomRecyclerAdapter
 import com.example.testtasktutu.list_screen.domain.RepositoryInfo
 
 interface ListViewModelInterface {
-    val liveData: LiveData<CustomRecyclerAdapter>
+    val adapterliveData: LiveData<CustomRecyclerAdapter>
 //    fun setDataManager(dataManager: DataManagerInterface)
-    fun setLambdaItemOnClick(lambdaItemClick: (RepositoryInfo) -> Unit)
-    fun loadData(query: String)
+//    fun setLambdaItemOnClick(lambdaItemClick: (RepositoryInfo) -> Unit)
+    fun getAdapter(query: String, lambdaItemClick: (RepositoryInfo) -> Unit)
 }

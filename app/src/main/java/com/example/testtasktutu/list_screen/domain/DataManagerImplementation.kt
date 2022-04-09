@@ -31,36 +31,31 @@ class DataManagerImplementation(
 
     private val retrofitRepositoriesLoader: RetrofitRepositoriesLoaderInterface = RetrofitRepositoriesLoader()
 
-    private var callbackData: ((repositories: List<RepositoryInfo?>?) -> Unit)? = null
     private var query: String? = null
 
-    override fun setQuery(query: String, callbackList: (repositories: List<RepositoryInfo?>?) -> Unit) {
+    override fun setQuery(query: String) {
         this.query = query
-        this.callbackData = callbackList
         getData()
     }
 
     private fun getData()/*: MutableLiveData<List<RepositoryInfo>>?*/ {
 
-        var localData: MutableLiveData<List<RepositoryInfo>>? = MutableLiveData()
-
         if (checkForInternet()) {
-            val data = retrofitRepositoriesLoader.liveData?.observeForever{
+            retrofitRepositoriesLoader.liveData?.observeForever{
 
                 if (it != null) {
-                    localData?.value = it
-                } else {                                           //null - из интернета ничего не загрузилось
+                    _liveData?.value = it
+                } else {
                     CacheRepositoriesLoader(query!!)
                 }
             }
 
-            val loader = retrofitRepositoriesLoader.loadData(query!!)
+            retrofitRepositoriesLoader.loadData(query!!)
 
 
         } else {
             CacheRepositoriesLoader(query!!)
         }
-//        return localData
     }
 
 

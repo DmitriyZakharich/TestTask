@@ -6,5 +6,5 @@ import com.example.testtasktutu.list_screen.domain.RepositoryInfo
 
 interface RetrofitRepositoriesLoaderInterface {
     val liveData: LiveData<List<RepositoryInfo>>?
-    fun loadData(query: String): MutableLiveData<List<RepositoryInfo>>?
+    fun loadData(query: String)
 }

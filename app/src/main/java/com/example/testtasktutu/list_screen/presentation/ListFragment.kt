@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
-import com.example.testtasktutu.list_screen.data.network.RetrofitRepositoriesLoader
-import com.example.testtasktutu.list_screen.domain.DataManagerImplementation
 import com.example.testtasktutu.list_screen.presentation.interfaces.ListViewModelInterface
 import com.example.testtasktutu.list_screen.viewmodel.ListFragmentViewModel
 
@@ -29,7 +27,8 @@ class ListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val searchView = view.findViewById<SearchView>(R.id.search_view)
 
-        val viewModel: ListViewModelInterface = ViewModelProvider(this)[ListFragmentViewModel::class.java]
+        val viewModel: ListViewModelInterface =
+            ViewModelProvider(this)[ListFragmentViewModel::class.java]
 
 //            val transaction = requireActivity().supportFragmentManager.beginTransaction()
 //            transaction.replace(R.id.fragmentContainerView, DetailsFragment(it.repositoryName))
@@ -39,13 +38,13 @@ class ListFragment : Fragment() {
 
 //        viewModel.setDataManager(DataManagerImplementation(requireContext().applicationContext, RetrofitRepositoriesLoader()))
 
-        viewModel.liveData.observe(viewLifecycleOwner) {
+        viewModel.adapterliveData.observe(viewLifecycleOwner) {
             recyclerView.adapter = it
         }
 
-        viewModel.setLambdaItemOnClick {
-            Toast.makeText(requireContext(), it.description, Toast.LENGTH_SHORT).show()
-        }
+//        viewModel.setLambdaItemOnClick {
+//            Toast.makeText(requireContext(), it.description, Toast.LENGTH_SHORT).show()
+//        }
 
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -54,7 +53,13 @@ class ListFragment : Fragment() {
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-                viewModel.loadData(searchView.query.toString())
+                viewModel.getAdapter(searchView.query.toString()) {
+                    Toast.makeText(
+                        requireContext(),
+                        it.description,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 return false
             }
         })

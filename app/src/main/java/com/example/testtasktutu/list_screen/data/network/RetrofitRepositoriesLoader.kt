@@ -36,12 +36,14 @@ class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
                 response: Response<List<RepositoryInfo>>
             ) {
 
-                if (i )
-                error("${response.code()} ${response.message()} ${response.errorBody()}")
-
                 if (response.isSuccessful) {
                     _liveData?.value = response.body()
                 }
+
+//                if (i )
+                error("${response.code()} ${response.message()} ${response.errorBody()}")
+
+
             }
         })
 
