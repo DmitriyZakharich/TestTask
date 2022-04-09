@@ -56,7 +56,7 @@ class ListFragment : Fragment() {
                 viewModel.getAdapter(searchView.query.toString()) {
                     Toast.makeText(
                         requireContext(),
-                        it.description,
+                        if (!it.description.isNullOrEmpty()) it.description else "Нет описания",
                         Toast.LENGTH_SHORT
                     ).show()
                 }

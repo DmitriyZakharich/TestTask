@@ -2,6 +2,7 @@ package com.example.testtasktutu.list_screen.data.network
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.testtasktutu.list_screen.data.data_custom_exceptions.NetworkExceptions
 import com.example.testtasktutu.list_screen.domain.RepositoryInfo
 import com.example.testtasktutu.list_screen.domain.interfaces.RetrofitRepositoriesLoaderInterface
 import retrofit2.Call
@@ -12,8 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
 
-    private val _liveData: MutableLiveData<List<RepositoryInfo>>? = null
-    override val liveData: LiveData<List<RepositoryInfo>>? = _liveData
+    private val _liveData: MutableLiveData<List<RepositoryInfo>> = MutableLiveData()
+    override val liveData: LiveData<List<RepositoryInfo>> = _liveData
 
 
     override fun loadData(query: String) {
@@ -30,10 +31,14 @@ class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
 
             override fun onResponse(call: Call<List<RepositoryInfo>>,
                     response: Response<List<RepositoryInfo>>) {
-
                 if (response.isSuccessful) {
-                    _liveData?.value = response.body()
-                } else error("${response.code()} ${response.message()} ${response.errorBody()}")
+                    _liveData.value = response.body()
+                } else {
+                    throw NetworkExceptions(response.code(), response.message())
+//                    error("${response.code()} ${response.message()} ${response.errorBody()}")
+                }
+
+
 
 
             }
