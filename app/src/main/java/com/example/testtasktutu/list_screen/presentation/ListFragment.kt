@@ -7,14 +7,21 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
-import com.example.testtasktutu.list_screen.data.database.AppDatabase
 import com.example.testtasktutu.list_screen.presentation.interfaces.ListViewModelInterface
-import com.example.testtasktutu.list_screen.viewmodel.ListFragmentViewModel
+import com.example.testtasktutu.list_screen.viewmodel.ListViewModel
+import com.example.testtasktutu.list_screen.viewmodel.ListViewModelFactory
+import javax.inject.Inject
 
 class ListFragment : Fragment() {
+
+    @Inject
+    lateinit var vmFactory: ListViewModelFactory
+    private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +35,10 @@ class ListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         val searchView = view.findViewById<SearchView>(R.id.search_view)
 
+        (requireContext().applicationContext as MyApp).appComponent.inject(this)
+
         val viewModel: ListViewModelInterface =
-            ViewModelProvider(this)[ListFragmentViewModel::class.java]
+            ViewModelProvider(this, vmFactory)[ListViewModel::class.java]
 
 //            val transaction = requireActivity().supportFragmentManager.beginTransaction()
 //            transaction.replace(R.id.fragmentContainerView, DetailsFragment(it.repositoryName))

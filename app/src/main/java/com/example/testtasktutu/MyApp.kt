@@ -2,16 +2,12 @@ package com.example.testtasktutu
 
 import android.app.Application
 import android.content.Context
+import com.example.testtasktutu.list_screen.di.AppComponent
+import com.example.testtasktutu.list_screen.di.DaggerAppComponent
 
 class MyApp: Application() {
 
-//    init {
-//        instance = this
-//    }
-//
-//    fun getAppContext(): Context {
-//        return this.applicationContext
-//    }
+    lateinit var appComponent: AppComponent
 
     init {
         instance = this
@@ -27,10 +23,8 @@ class MyApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        // initialize for any
-
-        // Use ApplicationContext.
-        // example: SharedPreferences etc...
         val context: Context = MyApp.applicationContext()
+
+        appComponent = DaggerAppComponent.builder().build()
     }
 }

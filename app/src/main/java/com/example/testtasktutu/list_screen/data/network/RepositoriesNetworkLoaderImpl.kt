@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.testtasktutu.list_screen.data.data_custom_exceptions.NetworkExceptions
 import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
-import com.example.testtasktutu.list_screen.domain.interfaces.RetrofitRepositoriesLoaderInterface
+import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesNetworkLoader
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
+class RepositoriesNetworkLoaderImpl : RepositoriesNetworkLoader {
 
     private val _liveData: MutableLiveData<List<RepositoryInfoDomain>> = MutableLiveData()
     override val liveData: LiveData<List<RepositoryInfoDomain>> = _liveData
@@ -19,7 +19,6 @@ class RetrofitRepositoriesLoader : RetrofitRepositoriesLoaderInterface {
     override fun loadData(query: String) {
         val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create()).build()
-
         val requestApiRepositories = retrofit.create(RequestApiRepositories::class.java)
         val call = requestApiRepositories.getRequest(query)
 

@@ -1,7 +1,6 @@
 package com.example.testtasktutu.list_screen.domain.mappers
 
 import com.example.testtasktutu.list_screen.data.models.RepositoryInfoData
-import com.example.testtasktutu.list_screen.domain.DataManagerImplementation
 import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
 
 class RepositoryInfoMapper {
