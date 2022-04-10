@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
 
 class CustomRecyclerAdapter(
-    private val data: List<RepositoryInfo>,
-    private val clickListener: (RepositoryInfo) -> Unit
+    private val data: List<RepositoryInfoDomain>,
+    private val clickListener: (RepositoryInfoDomain) -> Unit
 ) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -19,7 +19,7 @@ class CustomRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.repositoryName.text = data[position].name
+        holder.repositoryName.text = data[position].repositoryName
         holder.description.text = data[position].description
         holder.language.text = data[position].language
         holder.stargazersCount.text = data[position].stargazers_count.toString()

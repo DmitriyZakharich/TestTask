@@ -29,7 +29,7 @@ class GetAdapterUseCase {
     //            }
     //    }
 
-    fun start(query: String, lambdaItemClick: (RepositoryInfo) -> Unit) {
+    fun start(query: String, lambdaItemClick: (RepositoryInfoDomain) -> Unit) {
 
 
         //        this.lambdaItemClick = lambdaItemClick

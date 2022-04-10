@@ -1,10 +1,9 @@
 package com.example.testtasktutu.list_screen.domain.interfaces
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.testtasktutu.list_screen.domain.RepositoryInfo
+import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
 
 interface RetrofitRepositoriesLoaderInterface {
-    val liveData: LiveData<List<RepositoryInfo>>?
+    val liveData: LiveData<List<RepositoryInfoDomain>>?
     fun loadData(query: String)
 }

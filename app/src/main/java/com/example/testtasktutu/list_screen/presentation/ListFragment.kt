@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
+import com.example.testtasktutu.list_screen.data.database.AppDatabase
 import com.example.testtasktutu.list_screen.presentation.interfaces.ListViewModelInterface
 import com.example.testtasktutu.list_screen.viewmodel.ListFragmentViewModel
 
@@ -35,17 +36,11 @@ class ListFragment : Fragment() {
 //            .disallowAddToBackStack()
 //            .commit()
 
-
-//        viewModel.setDataManager(DataManagerImplementation(requireContext().applicationContext, RetrofitRepositoriesLoader()))
-
         viewModel.adapterliveData.observe(viewLifecycleOwner) {
             recyclerView.adapter = it
         }
 
-//        viewModel.setLambdaItemOnClick {
-//            Toast.makeText(requireContext(), it.description, Toast.LENGTH_SHORT).show()
-//        }
-
+//        AppDatabase().loadData("1")
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
@@ -63,8 +58,6 @@ class ListFragment : Fragment() {
                 return false
             }
         })
-
-
     }
 
     companion object {
