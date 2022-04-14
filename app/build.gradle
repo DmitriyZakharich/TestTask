@@ -2,7 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id("de.mannodermaus.android-junit5")
 }
+
 
 android {
     compileSdk 32
@@ -30,12 +32,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
 
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+
+}
 
 dependencies {
 
-        ext.room_version = '2.1.0-alpha01'
+    ext.room_version = '2.1.0-alpha01'
 
 
     implementation 'androidx.core:core-ktx:1.7.0'
@@ -64,4 +72,9 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.40.2'
     kapt 'com.google.dagger:dagger-compiler:2.40.2'
 
+    // Aggregator dependency on JUnit api, engine, and params
+    testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
+    // (Optional) If you also have JUnit 4-based tests
+    testImplementation "junit:junit:4.13.2"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:5.8.2"
 }

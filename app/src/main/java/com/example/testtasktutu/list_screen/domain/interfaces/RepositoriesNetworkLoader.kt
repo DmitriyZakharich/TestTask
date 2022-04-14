@@ -1,9 +1,10 @@
 package com.example.testtasktutu.list_screen.domain.interfaces
 
 import androidx.lifecycle.LiveData
+import com.example.testtasktutu.list_screen.data.models.RepositoryInfoData
 import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
 
 interface RepositoriesNetworkLoader {
-    val liveData: LiveData<List<RepositoryInfoDomain>>?
-    fun loadData(query: String)
+//    val liveData: LiveData<List<RepositoryInfoData>>?
+    fun loadData(query: String, callbackList: (list: List<RepositoryInfoData>) -> Unit)
 }
