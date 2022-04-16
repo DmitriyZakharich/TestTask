@@ -14,20 +14,7 @@ class GetAdapterUseCase(private val dataManager: DataManager) {
     private var _adapter: MutableLiveData<CustomRecyclerAdapter> = MutableLiveData()
     var adapter: LiveData<CustomRecyclerAdapter> = _adapter
 
-    /**1) Принять данные
-     * 2) Сделать запрос в дату
-     * 3) Сделать запрос адаптера
-     * 4) Передать адаптер*/
 
-//        private fun setLambda(repositories: List<RepositoryInfo?>?) {
-//            if (!repositories.isNullOrEmpty() && repositories.filterNotNull().isNotEmpty())
-//
-//                lambdaItemClick?.let {
-//                    CustomRecyclerAdapter(
-//                        repositories.filterNotNull(), it
-//                    )
-//                }
-//        }
 
     private fun callbackList(list: List<RepositoryInfoDomain>){
         Log.d("TAG123321", "GetAdapterUseCase callbackList")
@@ -38,10 +25,6 @@ class GetAdapterUseCase(private val dataManager: DataManager) {
     fun start(query: String, lambdaItemClick: (RepositoryInfoDomain) -> Unit) {
         Log.d("TAG123321", "GetAdapterUseCase start")
         this.lambdaItemClick = lambdaItemClick
-
-//        dataManager.liveData.observeForever {
-//            _adapter.value = CustomRecyclerAdapter(it, lambdaItemClick)
-//        }
 
         try {
             dataManager.getData(query, ::callbackList)

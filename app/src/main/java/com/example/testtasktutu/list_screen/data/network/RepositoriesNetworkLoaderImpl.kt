@@ -15,12 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RepositoriesNetworkLoaderImpl : RepositoriesNetworkLoader {
 
-//    private val _liveData: MutableLiveData<List<RepositoryInfoData>> = MutableLiveData()
-//    override val liveData: LiveData<List<RepositoryInfoData>> = _liveData
-
-    override fun loadData(query: String, callbackList: (list: List<RepositoryInfoData>) -> Unit) {
-        Log.d("TAG123321", "RepositoriesNetworkLoaderImpl = loadData")
-
+        @Throws
+        override fun loadData(query: String, callbackList: (login: String, list: List<RepositoryInfoData>) -> Unit) {
         val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create()).build()
         val requestApiRepositories = retrofit.create(RequestApiRepositories::class.java)
@@ -33,14 +29,14 @@ class RepositoriesNetworkLoaderImpl : RepositoriesNetworkLoader {
             override fun onResponse(call: Call<List<RepositoryInfoData>>,
                     response: Response<List<RepositoryInfoData>>) {
                 if (response.isSuccessful) {
-                    Log.d("TAG123321", "RepositoriesNetworkLoaderImpl response.body() = ${response.body()}")
-
-                    callbackList(response.body()!!)
+                    callbackList(query, response.body()!!)
                 } else {
                     throw NetworkExceptions(response.code(), response.message())
 //                    error("${response.code()} ${response.message()} ${response.errorBody()}")
                 }
             }
         })
-    }
+
+
+        }
 }

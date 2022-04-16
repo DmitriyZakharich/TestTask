@@ -4,15 +4,14 @@ import com.example.testtasktutu.list_screen.data.models.RepositoryInfoData
 import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
 
 class RepositoryInfoMapper {
-
-
     companion object{
         fun modelListDataToDomain(list: List<RepositoryInfoData>): List<RepositoryInfoDomain> {
             val newList = mutableListOf<RepositoryInfoDomain>()
 
             list.forEach{
                 newList.add(RepositoryInfoDomain(
-                    it.repositoryName,
+                    it.login,
+                    it.name,
                     it.description,
                     it.language,
                     it.stargazers_count,
@@ -27,7 +26,7 @@ class RepositoryInfoMapper {
             repositoryInfoData.forEach{
                 newList.add(RepositoryInfoData(
                     userName,
-                    it.repositoryName ?: "",
+                    it.name ?: "",
                     it.description ?: "",
                     it.language ?: "",
                     it.stargazers_count ?: 0,

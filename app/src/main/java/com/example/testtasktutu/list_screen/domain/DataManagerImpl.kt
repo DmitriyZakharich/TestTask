@@ -1,8 +1,6 @@
 package com.example.testtasktutu.list_screen.domain
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.testtasktutu.list_screen.data.data_custom_exceptions.NetworkExceptions
 import com.example.testtasktutu.list_screen.data.data_custom_exceptions.NoDataException
 import com.example.testtasktutu.list_screen.data.data_custom_exceptions.NoDataInDatabaseException
@@ -20,39 +18,37 @@ import com.example.testtasktutu.utils.checkForInternet
 class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetworkLoader) :
     DataManager {
 
-    private val _liveData: MutableLiveData<List<RepositoryInfoDomain>> =
-        MutableLiveData<List<RepositoryInfoDomain>>()
-    override val liveData: LiveData<List<RepositoryInfoDomain>> = _liveData
     private var callbackListToUserCase: ((List<RepositoryInfoDomain>) -> Unit)? = null
     private val appDatabase = AppDatabase()
+//    private var login: String? = null
 
-    private fun callbackListFromData(list: List<RepositoryInfoData>){
-        callbackListToUserCase?.let { it(RepositoryInfoMapper.modelListDataToDomain(list)) }
-//        _liveData.value = RepositoryInfoMapper.modelListDataToDomain(list)
+    private fun callbackListFromData(login: String, list: List<RepositoryInfoData>) {
+        list.forEach { it.login = login }
+
+        callbackListToUserCase?.let {
+            it(RepositoryInfoMapper.modelListDataToDomain(list))
+        }
+
+        appDatabase.updateData(login = login, listInsert = list)
     }
 
-    override fun getData(userName: String, callbackListToUserCase: (List<RepositoryInfoDomain>) -> Unit) {
+    override fun getData(login: String,
+            callbackListToUserCase: (List<RepositoryInfoDomain>) -> Unit) {
         this.callbackListToUserCase = callbackListToUserCase
+//        this.login = login
 
         if (checkForInternet()) {
-            Log.d("TAG123321", "DataManagerImpl getData first userName = $userName")
-
-//            repositoriesNetworkLoader.liveData?.observeForever {
-//                appDatabase.updateData(userName, RepositoryInfoMapper.modelListDomainToData(userName, it))
-//                _liveData.value = it
-//            }
+            Log.d("TAG123321",
+                "DataManagerImpl getData first userName = $login") //            repositoriesNetworkLoader.liveData?.observeForever {
+            //                appDatabase.updateData(userName, RepositoryInfoMapper.modelListDomainToData(userName, it))
+            //                _liveData.value = it
+            //            }
             try {
-                repositoriesNetworkLoader.loadData(userName, ::callbackListFromData)
-            } catch (e: NetworkExceptions) {
+                repositoriesNetworkLoader.loadData(login,
+                    ::callbackListFromData) //                appDatabase.updateData(userName = userName, list = list)
+            } catch (e: IllegalStateException) {
                 try {
-
-                    //                    Log.d("TAG123321", "не загрузилось ")
-//                    appDatabase.liveData.observeForever {
-//                        _liveData.value = RepositoryInfoMapper.modelListDataToDomain(it)
-//
-//                    }
-
-                    appDatabase.loadData(userName, ::callbackListFromData)
+                    appDatabase.loadData(login, ::callbackListFromData)
 
                 } catch (e: NoDataInDatabaseException) {
                     throw NoDataException()
@@ -61,14 +57,14 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
             }
         } else try { //                Log.d("TAG123321", "нет интернета")
             //                Log.d("TAG123321", userName)
-//            appDatabase.liveData.observeForever {
-//                Log.d("TAG123321", "getData observeForever userName = $userName")
-//                _liveData.value = RepositoryInfoMapper.modelListDataToDomain(it)
-//                Log.d("TAG123321", "getData last observeForever userName = $userName")
-//
-//            }
+            //            appDatabase.liveData.observeForever {
+            //                Log.d("TAG123321", "getData observeForever userName = $userName")
+            //                _liveData.value = RepositoryInfoMapper.modelListDataToDomain(it)
+            //                Log.d("TAG123321", "getData last observeForever userName = $userName")
+            //
+            //            }
             Log.d("TAG123321", "DataManager getData before")
-            appDatabase.loadData(userName, ::callbackListFromData)
+            appDatabase.loadData(login, ::callbackListFromData)
             Log.d("TAG123321", "DataManager getData after")
         } catch (e: NoDataInDatabaseException) {
             throw NoDataException()

@@ -5,12 +5,12 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class RepositoryInfoData(
-    var userName: String,
-    var repositoryName: String,
-    var description: String,
-    var language: String,
-    var stargazers_count: Int,
-    var updated_at: String
+    var login: String?,
+    var name: String?,
+    var description: String?,
+    var language: String?,
+    var stargazers_count: Int?,
+    var updated_at: String?
 ){
     @PrimaryKey(autoGenerate = true)
      var id: Int = 0

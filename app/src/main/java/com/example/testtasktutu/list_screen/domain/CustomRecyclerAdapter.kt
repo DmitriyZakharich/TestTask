@@ -19,7 +19,7 @@ class CustomRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.repositoryName.text = data[position].repositoryName
+        holder.repositoryName.text = data[position].name
         holder.description.text = data[position].description
         holder.language.text = data[position].language
         holder.stargazersCount.text = data[position].stargazers_count.toString()
