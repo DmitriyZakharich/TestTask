@@ -7,5 +7,5 @@ import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
 interface DataManager {
 //    val liveData: LiveData<List<RepositoryInfoDomain>>
     //    fun setQuery(query: String, callbackList: (repositories: List<RepositoryInfo?>?) -> Unit)
-    fun getData(userName: String, callbackListToUserCase: (list: List<RepositoryInfoDomain>) -> Unit) //    fun getData(): MutableLiveData<CustomRecyclerAdapter?>
+    fun getData(userName: String, callbackListToUserCase: (isSuccess: Boolean, list: List<RepositoryInfoDomain>?) -> Unit) //    fun getData(): MutableLiveData<CustomRecyclerAdapter?>
 }

@@ -6,5 +6,5 @@ import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
 
 interface RepositoriesNetworkLoader {
 //    val liveData: LiveData<List<RepositoryInfoData>>?
-    fun loadData(query: String, callbackList: (login: String, list: List<RepositoryInfoData>) -> Unit)
+    fun loadData(query: String, callbackList: (isSuccess: Boolean, login: String, list: List<RepositoryInfoData>?) -> Unit)
 }

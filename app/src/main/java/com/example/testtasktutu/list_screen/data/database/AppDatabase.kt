@@ -14,24 +14,12 @@ class AppDatabase {
             "RepositoryInfoData").allowMainThreadQueries().fallbackToDestructiveMigration().build()
     private val repositoryInfoDao = db.getRepositoryInfoDao()
 
-    fun loadData(login: String, callbackList: (login2: String, list: List<RepositoryInfoData>) -> Unit) {
-
-        val localListData = repositoryInfoDao.getUser(login)
-
-        Log.d("TAG123321", "AppDatabase loadData")
-
-        if (!localListData.isNullOrEmpty())
-            callbackList(login, localListData)
-//            _liveData.value = localListData
-        else
-            throw NoDataInDatabaseException()
+    fun loadData(login: String, callbackList: (List<RepositoryInfoData>?) -> Unit) {
+        callbackList(repositoryInfoDao.getUser(login))
     }
 
     fun updateData(login: String, listInsert: List<RepositoryInfoData>) {
-        Log.d("TAG123321", "updateData userName = $login")
-
         repositoryInfoDao.delete(login)
         repositoryInfoDao.insert(listInsert)
     }
-
 }

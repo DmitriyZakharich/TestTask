@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.MyApp
@@ -45,11 +44,9 @@ class ListFragment : Fragment() {
 //            .disallowAddToBackStack()
 //            .commit()
 
-        viewModel.adapterliveData.observe(viewLifecycleOwner) {
-            recyclerView.adapter = it
+        viewModel.adapter.observe(viewLifecycleOwner) {
+                recyclerView.adapter = it
         }
-
-//        AppDatabase().loadData("1")
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
