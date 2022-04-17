@@ -1,5 +1,6 @@
 package com.example.testtasktutu.list_screen.domain
 
+import android.util.Log
 import android.widget.Toast
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
@@ -21,6 +22,18 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
         null
     private val appDatabase = AppDatabase()
 
+    init {
+        appDatabase.livedata.observeForever{
+            if (!it.isNullOrEmpty()) {
+                callbackListToUserCase?.let {lambda ->
+                    lambda(true, RepositoryInfoMapper.modelListDataToDomain(it))
+                }
+            } else Toast.makeText(MyApp.applicationContext(),
+                MyApp.applicationContext().getString(R.string.no_data_available), Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
     private fun callbackListFromNetwork(isSuccess: Boolean, login: String,
             list: List<RepositoryInfoData>?) {
 
@@ -33,18 +46,8 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
             appDatabase.updateData(login = login, listInsert = list)
 
         } else {
-            appDatabase.loadData(login, ::callbackListFromDatabase)
+            appDatabase.loadData(login)
         }
-    }
-
-    private fun callbackListFromDatabase(list: List<RepositoryInfoData>?) {
-        if (!list.isNullOrEmpty()) {
-            callbackListToUserCase?.let {
-                it(true, RepositoryInfoMapper.modelListDataToDomain(list))
-            }
-        } else Toast.makeText(MyApp.applicationContext(),
-            MyApp.applicationContext().getString(R.string.no_data_available), Toast.LENGTH_LONG)
-            .show()
     }
 
     override fun getData(userName: String,
@@ -53,7 +56,8 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
 
         if (checkForInternet()) {
             repositoriesNetworkLoader.loadData(userName, ::callbackListFromNetwork)
-        } else
-            appDatabase.loadData(userName, ::callbackListFromDatabase)
+        } else {
+            appDatabase.loadData(userName)
+        }
     }
 }
