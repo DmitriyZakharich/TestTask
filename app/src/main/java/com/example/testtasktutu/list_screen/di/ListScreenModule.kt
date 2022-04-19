@@ -6,8 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AppModule {
-
+class ListScreenModule {
     @Provides
     fun provideListViewModelFactory(getAdapterUseCase: GetAdapterUseCase): ListViewModelFactory =
         ListViewModelFactory(getAdapterUseCase)

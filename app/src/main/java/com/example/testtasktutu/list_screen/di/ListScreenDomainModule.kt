@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class DomainModule {
+class ListScreenDomainModule {
     @Provides
     fun provideDataManager(repositoriesNetworkLoader: RepositoriesNetworkLoader): DataManager =
         DataManagerImpl(repositoriesNetworkLoader)

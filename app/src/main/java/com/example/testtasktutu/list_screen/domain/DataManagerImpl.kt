@@ -1,6 +1,5 @@
 package com.example.testtasktutu.list_screen.domain
 
-import android.util.Log
 import android.widget.Toast
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
@@ -23,9 +22,9 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
     private val appDatabase = AppDatabase()
 
     init {
-        appDatabase.livedata.observeForever{
+        appDatabase.livedata.observeForever {
             if (!it.isNullOrEmpty()) {
-                callbackListToUserCase?.let {lambda ->
+                callbackListToUserCase?.let { lambda ->
                     lambda(true, RepositoryInfoMapper.modelListDataToDomain(it))
                 }
             } else Toast.makeText(MyApp.applicationContext(),

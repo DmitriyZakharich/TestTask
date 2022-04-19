@@ -12,6 +12,7 @@ class RepositoriesNetworkLoaderImpl : RepositoriesNetworkLoader {
 
     override fun loadData(query: String,
             callbackList: (isSuccess: Boolean, login: String, list: List<RepositoryInfoData>?) -> Unit) {
+
         val retrofit = Retrofit.Builder().baseUrl("https://api.github.com/")
             .addConverterFactory(GsonConverterFactory.create()).build()
         val requestApiRepositories = retrofit.create(RequestApiRepositories::class.java)
@@ -28,3 +29,4 @@ class RepositoriesNetworkLoaderImpl : RepositoriesNetworkLoader {
         })
     }
 }
+

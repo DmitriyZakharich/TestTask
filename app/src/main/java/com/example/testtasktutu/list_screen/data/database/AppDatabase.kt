@@ -12,8 +12,6 @@ import kotlinx.coroutines.launch
 
 class AppDatabase {
 
-    //В MyApp или даггер?
-    //Добавить ассинхронность
     private val db =
         Room.databaseBuilder(MyApp.applicationContext(), RepositoriesDatabase::class.java,
             "RepositoryInfoData").fallbackToDestructiveMigration().build()

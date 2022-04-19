@@ -2,12 +2,12 @@ package com.example.testtasktutu
 
 import android.app.Application
 import android.content.Context
-import com.example.testtasktutu.list_screen.di.AppComponent
-import com.example.testtasktutu.list_screen.di.DaggerAppComponent
+import com.example.testtasktutu.list_screen.di.ListScreenComponent
+import com.example.testtasktutu.list_screen.di.DaggerListScreenComponent
 
 class MyApp: Application() {
 
-    lateinit var appComponent: AppComponent
+    lateinit var listScreenComponent: ListScreenComponent
 
     init {
         instance = this
@@ -23,8 +23,8 @@ class MyApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val context: Context = MyApp.applicationContext()
+        val context: Context = applicationContext()
 
-        appComponent = DaggerAppComponent.builder().build()
+        listScreenComponent = DaggerListScreenComponent.builder().build()
     }
 }

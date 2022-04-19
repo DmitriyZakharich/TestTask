@@ -6,8 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class DataModule {
-
+class ListScreenDataModule {
     @Provides
     fun provideRepositoriesNetworkLoader(): RepositoriesNetworkLoader =
         RepositoriesNetworkLoaderImpl()
