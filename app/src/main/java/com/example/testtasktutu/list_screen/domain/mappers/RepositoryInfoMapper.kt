@@ -1,36 +1,22 @@
 package com.example.testtasktutu.list_screen.domain.mappers
 
-import com.example.testtasktutu.list_screen.data.models.RepositoryInfoData
-import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
+import com.example.testtasktutu.list_screen.data.models.RepositoryBriefInfoData
+import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 
 class RepositoryInfoMapper {
-    companion object{
-        fun modelListDataToDomain(list: List<RepositoryInfoData>): List<RepositoryInfoDomain> {
-            val newList = mutableListOf<RepositoryInfoDomain>()
+    companion object {
+        fun modelListDataToDomain(
+                list: List<RepositoryBriefInfoData>): List<RepositoryBriefInfoDomain> {
+            val newList = mutableListOf<RepositoryBriefInfoDomain>()
 
-            list.forEach{
-                newList.add(RepositoryInfoDomain(
-                    it.login,
-                    it.name,
-                    it.description,
-                    it.language,
-                    it.stargazers_count,
-                    it.updated_at))
-            }
-            return newList
-        }
-
-        fun modelListDomainToData(userName: String, repositoryInfoData: List<RepositoryInfoDomain>): List<RepositoryInfoData> {
-            val newList = mutableListOf<RepositoryInfoData>()
-
-            repositoryInfoData.forEach{
-                newList.add(RepositoryInfoData(
-                    userName,
-                    it.name ?: "",
-                    it.description ?: "",
-                    it.language ?: "",
-                    it.stargazers_count ?: 0,
-                    it.updated_at ?: ""))
+            list.forEach {
+                newList.add(RepositoryBriefInfoDomain(
+                    login = it.login,
+                    name = it.name,
+                    description = it.description,
+                    language = it.language,
+                    stargazers_count = it.stargazers_count,
+                    updated_at = it.updated_at))
             }
             return newList
         }

@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class RepositoryInfoData(
+data class RepositoryBriefInfoData(
     var login: String?,
-    var name: String?,
+    var name: String?,  //repository name
     var description: String?,
     var language: String?,
     var stargazers_count: Int?,

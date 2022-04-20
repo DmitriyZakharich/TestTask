@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
+import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 
 class CustomRecyclerAdapter(
-    private val data: List<RepositoryInfoDomain>,
-    private val clickListener: (RepositoryInfoDomain) -> Unit
+    private val data: List<RepositoryBriefInfoDomain>,
+    private val clickListener: (RepositoryBriefInfoDomain) -> Unit
 ) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

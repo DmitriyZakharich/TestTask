@@ -4,22 +4,18 @@ import android.widget.Toast
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
 import com.example.testtasktutu.list_screen.data.database.AppDatabase
-import com.example.testtasktutu.list_screen.data.models.RepositoryInfoData
+import com.example.testtasktutu.list_screen.data.models.RepositoryBriefInfoData
 import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesNetworkLoader
 import com.example.testtasktutu.list_screen.domain.mappers.RepositoryInfoMapper
+import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 import com.example.testtasktutu.list_screen.presentation.interfaces.DataManager
 import com.example.testtasktutu.utils.checkForInternet
 
-/**Получает запрос на загрузку данных из GetAdapterUseCase
- * Пытается загрузить данные из сети и обновляет данные в кеше
- * Если не получается, то загружает данные из кеша*/
+class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetworkLoader,
+        private val appDatabase: AppDatabase) : DataManager {
 
-class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetworkLoader) :
-    DataManager {
-
-    private var callbackListToUserCase: ((isSuccess: Boolean, List<RepositoryInfoDomain>?) -> Unit)? =
+    private var callbackListToUserCase: ((isSuccess: Boolean, List<RepositoryBriefInfoDomain>?) -> Unit)? =
         null
-    private val appDatabase = AppDatabase()
 
     init {
         appDatabase.livedata.observeForever {
@@ -34,7 +30,7 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
     }
 
     private fun callbackListFromNetwork(isSuccess: Boolean, login: String,
-            list: List<RepositoryInfoData>?) {
+            list: List<RepositoryBriefInfoData>?) {
 
         if (isSuccess && !list.isNullOrEmpty()) {
             list.forEach { it.login = login }
@@ -50,7 +46,7 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
     }
 
     override fun getData(userName: String,
-            callbackListToUserCase: (isSuccess: Boolean, List<RepositoryInfoDomain>?) -> Unit) {
+            callbackListToUserCase: (isSuccess: Boolean, List<RepositoryBriefInfoDomain>?) -> Unit) {
         this.callbackListToUserCase = callbackListToUserCase
 
         if (checkForInternet()) {

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.testtasktutu.list_screen.domain.CustomRecyclerAdapter
 import com.example.testtasktutu.list_screen.domain.GetAdapterUseCase
-import com.example.testtasktutu.list_screen.domain.RepositoryInfoDomain
+import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 import com.example.testtasktutu.list_screen.presentation.interfaces.ListViewModelInterface
 
 class ListViewModel(private val getAdapterUseCase: GetAdapterUseCase) : ViewModel(),
@@ -14,7 +14,7 @@ class ListViewModel(private val getAdapterUseCase: GetAdapterUseCase) : ViewMode
     private var _adapter = MutableLiveData<CustomRecyclerAdapter>()
     override val adapter: LiveData<CustomRecyclerAdapter> = _adapter
 
-    override fun getAdapter(query: String, lambdaItemClick: (RepositoryInfoDomain) -> Unit) {
+    override fun getAdapter(query: String, lambdaItemClick: (RepositoryBriefInfoDomain) -> Unit) {
         getAdapterUseCase.adapter.observeForever {
             _adapter.value = it
         }

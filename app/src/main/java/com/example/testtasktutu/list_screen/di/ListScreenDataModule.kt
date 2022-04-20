@@ -1,5 +1,6 @@
 package com.example.testtasktutu.list_screen.di
 
+import com.example.testtasktutu.list_screen.data.database.AppDatabase
 import com.example.testtasktutu.list_screen.data.network.RepositoriesNetworkLoaderImpl
 import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesNetworkLoader
 import dagger.Module
@@ -10,4 +11,7 @@ class ListScreenDataModule {
     @Provides
     fun provideRepositoriesNetworkLoader(): RepositoriesNetworkLoader =
         RepositoriesNetworkLoaderImpl()
+
+    @Provides
+    fun provideAppDatabase(): AppDatabase = AppDatabase()
 }
