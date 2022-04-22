@@ -3,22 +3,24 @@ package com.example.testtasktutu.list_screen.domain
 import android.widget.Toast
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
-import com.example.testtasktutu.list_screen.data.database.AppDatabase
-import com.example.testtasktutu.list_screen.data.models.RepositoryBriefInfoData
-import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesNetworkLoader
+import com.example.testtasktutu.app_data.database.AppDatabase
+import com.example.testtasktutu.app_data.models.RepositoriesInfoData
+import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
+import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesInfoLoader
+import com.example.testtasktutu.list_screen.domain.mappers.InfoFromBriefToFull
 import com.example.testtasktutu.list_screen.domain.mappers.RepositoryInfoMapper
 import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 import com.example.testtasktutu.list_screen.presentation.interfaces.DataManager
 import com.example.testtasktutu.utils.checkForInternet
 
-class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetworkLoader,
+class DataManagerImpl(private val repositoriesInfoLoader: RepositoriesInfoLoader,
         private val appDatabase: AppDatabase) : DataManager {
 
     private var callbackListToUserCase: ((isSuccess: Boolean, List<RepositoryBriefInfoDomain>?) -> Unit)? =
         null
 
     init {
-        appDatabase.livedata.observeForever {
+        appDatabase.repositoriesList.observeForever {
             if (!it.isNullOrEmpty()) {
                 callbackListToUserCase?.let { lambda ->
                     lambda(true, RepositoryInfoMapper.modelListDataToDomain(it))
@@ -38,21 +40,21 @@ class DataManagerImpl(private val repositoriesNetworkLoader: RepositoriesNetwork
             callbackListToUserCase?.let {
                 it(isSuccess, RepositoryInfoMapper.modelListDataToDomain(list))
             }
-            appDatabase.updateData(login = login, listInsert = list)
+            appDatabase.updateData(login = login, listInsert = InfoFromBriefToFull.convert(list))
 
         } else {
-            appDatabase.loadData(login)
+            appDatabase.loadRepositoriesList(login)
         }
     }
 
-    override fun getData(userName: String,
+    override fun getData(login: String,
             callbackListToUserCase: (isSuccess: Boolean, List<RepositoryBriefInfoDomain>?) -> Unit) {
         this.callbackListToUserCase = callbackListToUserCase
 
         if (checkForInternet()) {
-            repositoriesNetworkLoader.loadData(userName, ::callbackListFromNetwork)
+            repositoriesInfoLoader.loadRepositoriesList(login, ::callbackListFromNetwork)
         } else {
-            appDatabase.loadData(userName)
+            appDatabase.loadRepositoriesList(login)
         }
     }
 }

@@ -2,36 +2,46 @@ package com.example.testtasktutu.details_screen.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.testtasktutu.details_screen.data.database.DetailsDatabase
-import com.example.testtasktutu.details_screen.data.models.DetailsInfoData
-import com.example.testtasktutu.details_screen.data.network.DetailsInfoLoaderImpl
-import com.example.testtasktutu.details_screen.domain.mappers.DetailsInfoMapper
-import com.example.testtasktutu.details_screen.domain.model.DetailsInfoDomain
+import androidx.lifecycle.Observer
+import com.example.testtasktutu.app_data.database.AppDatabase
+import com.example.testtasktutu.app_data.models.RepositoriesInfoData
+import com.example.testtasktutu.app_data.models.ParcelDetailsInfo
+import com.example.testtasktutu.app_data.network.RepositoriesInfoLoaderImpl
+import com.example.testtasktutu.details_screen.domain.mappers.RepositoriesInfoMapper
+import com.example.testtasktutu.details_screen.domain.model.RepositoriesInfoDomain
+import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesInfoLoader
 import com.example.testtasktutu.utils.checkForInternet
 
-class GetDataUseCase(private val detailsInfoLoader: DetailsInfoLoaderImpl,
-        private val detailsDatabase: DetailsDatabase) {
+class GetDataUseCase(private val repositoriesInfoLoader: RepositoriesInfoLoader,
+        private val appDatabase: AppDatabase) {
 
-    private val _info = MutableLiveData<DetailsInfoDomain>()
-    val infoData: LiveData<DetailsInfoDomain> = _info
+    private val _info = MutableLiveData<RepositoriesInfoDomain>()
+    val info: LiveData<RepositoriesInfoDomain> = _info
 
     init {
-        detailsInfoLoader.parcelDetailsInfo.observeForever {
-            if (it.isSuccess && it.detailsInfoData != null) {
-                _info.value = DetailsInfoMapper.modelDetailsInfoToDomain(it.detailsInfoData)
-                detailsDatabase.updateData(login = it.login, detailsInfoData = it.detailsInfoData)
+        repositoriesInfoLoader.parcelDetailsInfo.observeForever(observer())
+        appDatabase.repositoryInfo.observeForever(observerDB())
+    }
 
-            } else {
-                detailsDatabase.loadData(login = it.login, name = it.name)
-            }
+    private fun observer() = Observer<ParcelDetailsInfo> {
+        if (it.isSuccess && it.detailsInfoData != null) {
+            _info.value = RepositoriesInfoMapper.modelRepositoriesInfoToDomain(it.detailsInfoData)
+            appDatabase.updateData(login = it.login, detailsInfoData = it.detailsInfoData)
+
+        } else {
+            appDatabase.loadRepositoryInfo(login = it.login, name = it.name)
         }
+    }
+
+    private fun observerDB() = Observer<RepositoriesInfoData?>{
+        _info.value = RepositoriesInfoMapper.modelRepositoriesInfoToDomain(it)
     }
 
     fun getData(login: String, name: String) {
         if (checkForInternet()) {
-            detailsInfoLoader.loadData(login, name)
+            repositoriesInfoLoader.loadRepositoryInfo(login = login, name = name)
         } else {
-            detailsDatabase.loadData(login, name)
+            appDatabase.loadRepositoryInfo(login = login, name = name)
         }
     }
 }

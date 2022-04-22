@@ -22,9 +22,6 @@ class CustomRecyclerAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.repositoryName.text = data[position].name
         holder.description.text = data[position].description
-        holder.language.text = data[position].language
-        holder.stargazersCount.text = data[position].stargazers_count.toString()
-        holder.updatedAt.text = data[position].updated_at
     }
 
     override fun getItemCount() = data.size
@@ -33,9 +30,6 @@ class CustomRecyclerAdapter(
         RecyclerView.ViewHolder(itemView) {
         val repositoryName: TextView = itemView.findViewById(R.id.repository_name)
         val description: TextView = itemView.findViewById(R.id.description)
-        val language: TextView = itemView.findViewById(R.id.language)
-        val stargazersCount: TextView = itemView.findViewById(R.id.stargazers_count)
-        val updatedAt: TextView = itemView.findViewById(R.id.updated_at)
 
         init {
             itemView.setOnClickListener {

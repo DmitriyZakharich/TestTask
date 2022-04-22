@@ -1,6 +1,7 @@
 package com.example.testtasktutu.list_screen.domain.mappers
 
-import com.example.testtasktutu.list_screen.data.models.RepositoryBriefInfoData
+import com.example.testtasktutu.app_data.models.RepositoriesInfoData
+import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
 import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 
 class RepositoryInfoMapper {
@@ -10,13 +11,8 @@ class RepositoryInfoMapper {
             val newList = mutableListOf<RepositoryBriefInfoDomain>()
 
             list.forEach {
-                newList.add(RepositoryBriefInfoDomain(
-                    login = it.login,
-                    name = it.name,
-                    description = it.description,
-                    language = it.language,
-                    stargazers_count = it.stargazers_count,
-                    updated_at = it.updated_at))
+                newList.add(RepositoryBriefInfoDomain(login = it.login, name = it.name,
+                    description = it.description))
             }
             return newList
         }

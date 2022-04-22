@@ -1,9 +1,9 @@
-package com.example.testtasktutu.list_screen.data.network
+package com.example.testtasktutu.app_data.network
 
 import org.junit.jupiter.api.Test
 
 
-class RepositoriesNetworkLoaderImplTest {
+class RepositoriesInfoLoaderImplTest {
 
     @Test
     fun getLiveData() {

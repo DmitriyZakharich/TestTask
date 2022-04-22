@@ -1,6 +1,7 @@
-package com.example.testtasktutu.list_screen.data.network
+package com.example.testtasktutu.app_data.network
 
-import com.example.testtasktutu.list_screen.data.models.RepositoryBriefInfoData
+import com.example.testtasktutu.app_data.models.RepositoriesInfoData
+import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
