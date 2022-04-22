@@ -3,6 +3,7 @@ package com.example.testtasktutu.app_data.database
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.testtasktutu.app_data.models.RepositoriesInfoData
 import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
 
@@ -19,4 +20,7 @@ interface RepositoryInfoDao {
 
     @Insert
     fun insert(list: List<RepositoriesInfoData>)
+
+    @Update
+    fun updateRepositoryInfo(repos: RepositoriesInfoData)
 }

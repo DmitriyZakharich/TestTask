@@ -1,5 +1,6 @@
 package com.example.testtasktutu.details_screen.domain
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -26,7 +27,9 @@ class GetDataUseCase(private val repositoriesInfoLoader: RepositoriesInfoLoader,
     private fun observer() = Observer<ParcelDetailsInfo> {
         if (it.isSuccess && it.detailsInfoData != null) {
             _info.value = RepositoriesInfoMapper.modelRepositoriesInfoToDomain(it.detailsInfoData)
-            appDatabase.updateData(login = it.login, detailsInfoData = it.detailsInfoData)
+
+            it.detailsInfoData.login = it.login
+            appDatabase.updateData(detailsInfoData = it.detailsInfoData)
 
         } else {
             appDatabase.loadRepositoryInfo(login = it.login, name = it.name)
