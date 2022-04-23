@@ -7,7 +7,8 @@ import retrofit2.http.Path
 
 interface RequestApiRepositoryDetailsInfo {
     @GET("repos/{username}/{repository}")
-    fun getRequest(@Path("username") username: String,
+    fun getRequest(
+            @Path("username") username: String,
             @Path("repository") repository: String): Call<RepositoriesInfoData>
 }
 

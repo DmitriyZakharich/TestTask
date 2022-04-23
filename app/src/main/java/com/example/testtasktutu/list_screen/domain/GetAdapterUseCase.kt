@@ -2,6 +2,9 @@ package com.example.testtasktutu.list_screen.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.example.testtasktutu.app_data.models.ParcelRepositoriesInfo
+import com.example.testtasktutu.list_screen.domain.models.ParcelRepositoryBriefInfo
 import com.example.testtasktutu.list_screen.domain.models.RepositoryBriefInfoDomain
 import com.example.testtasktutu.list_screen.presentation.interfaces.DataManager
 
@@ -11,14 +14,17 @@ class GetAdapterUseCase(private val dataManager: DataManager) {
     private var _adapter: MutableLiveData<CustomRecyclerAdapter> = MutableLiveData()
     var adapter: LiveData<CustomRecyclerAdapter> = _adapter
 
-    private fun callbackList(isSuccess: Boolean, list: List<RepositoryBriefInfoDomain>?) {
-        if (isSuccess && !list.isNullOrEmpty()) _adapter.value =
-            lambdaItemClick?.let { CustomRecyclerAdapter(list, it) }
+    init {
+        dataManager.data.observeForever(observerNetwork())
+    }
+
+    private fun observerNetwork() = Observer<ParcelRepositoryBriefInfo> { parcel ->
+        if (parcel.isSuccess && !parcel.list.isNullOrEmpty() && lambdaItemClick != null)
+            _adapter.value = CustomRecyclerAdapter(data = parcel.list, clickListener = lambdaItemClick!!)
     }
 
     fun start(query: String, lambdaItemClick: (RepositoryBriefInfoDomain) -> Unit) {
         this.lambdaItemClick = lambdaItemClick
-
-        dataManager.getData(query, ::callbackList)
+        dataManager.getData(query)
     }
 }

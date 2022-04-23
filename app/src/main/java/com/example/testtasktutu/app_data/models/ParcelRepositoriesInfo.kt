@@ -1,7 +1,6 @@
 package com.example.testtasktutu.app_data.models
 
-data class ParcelDetailsInfo(
+class ParcelRepositoriesInfo(
         val isSuccess: Boolean,
         val login: String,
-        val name: String,
-        val detailsInfoData: RepositoriesInfoData?)
+        val listRepositoriesInfo: List<RepositoryBriefInfoData?>?)

@@ -1,9 +1,7 @@
 package com.example.testtasktutu.app_data.database
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.room.Room
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.app_data.models.RepositoriesInfoData
@@ -18,7 +16,6 @@ class AppDatabase {
         Room.databaseBuilder(MyApp.applicationContext(), RepositoriesDatabase::class.java,
             "RepositoriesInfoData").fallbackToDestructiveMigration().build()
     private val repositoryInfoDao = db.getRepositoryInfoDao()
-    private var observer: Unit? = null
 
     private val _repositoriesList = MutableLiveData<List<RepositoryBriefInfoData>?>()
     val repositoriesList: LiveData<List<RepositoryBriefInfoData>?> = _repositoriesList
@@ -48,8 +45,7 @@ class AppDatabase {
 
     fun updateData(detailsInfoData: RepositoriesInfoData) {
         val id = MutableLiveData<Int>()
-
-        id.observeForever{
+        id.observeForever {
             detailsInfoData.id = it
             CoroutineScope(IO).launch {
                 repositoryInfoDao.updateRepositoryInfo(detailsInfoData)
@@ -58,11 +54,8 @@ class AppDatabase {
 
         if (!detailsInfoData.login.isNullOrEmpty() && !detailsInfoData.name.isNullOrEmpty()) {
             CoroutineScope(IO).launch {
-                id.postValue(
-                    repositoryInfoDao.getRepositoryInfo(
-                        login = detailsInfoData.login!!,
-                        name = detailsInfoData.name!!)
-                        .id)
+                id.postValue(repositoryInfoDao.getRepositoryInfo(login = detailsInfoData.login!!,
+                    name = detailsInfoData.name!!).id)
             }
         }
     }

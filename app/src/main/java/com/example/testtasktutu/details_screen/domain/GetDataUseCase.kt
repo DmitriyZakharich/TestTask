@@ -1,13 +1,11 @@
 package com.example.testtasktutu.details_screen.domain
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.testtasktutu.app_data.database.AppDatabase
-import com.example.testtasktutu.app_data.models.RepositoriesInfoData
 import com.example.testtasktutu.app_data.models.ParcelDetailsInfo
-import com.example.testtasktutu.app_data.network.RepositoriesInfoLoaderImpl
+import com.example.testtasktutu.app_data.models.RepositoriesInfoData
 import com.example.testtasktutu.details_screen.domain.mappers.RepositoriesInfoMapper
 import com.example.testtasktutu.details_screen.domain.model.RepositoriesInfoDomain
 import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesInfoLoader
@@ -36,7 +34,7 @@ class GetDataUseCase(private val repositoriesInfoLoader: RepositoriesInfoLoader,
         }
     }
 
-    private fun observerDB() = Observer<RepositoriesInfoData?>{
+    private fun observerDB() = Observer<RepositoriesInfoData?> {
         _info.value = RepositoriesInfoMapper.modelRepositoriesInfoToDomain(it)
     }
 
