@@ -8,6 +8,6 @@ class ListViewModelFactory(private val getAdapterUseCase: GetAdapterUseCase) :
     ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ListViewModel(getAdapterUseCase) as T
+        return ListViewModelImpl(getAdapterUseCase) as T
     }
 }

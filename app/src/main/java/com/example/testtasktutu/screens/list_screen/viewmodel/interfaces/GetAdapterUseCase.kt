@@ -6,5 +6,5 @@ import com.example.testtasktutu.screens.list_screen.domain.models.RepositoryBrie
 
 interface GetAdapterUseCase {
     var adapter: LiveData<CustomRecyclerAdapter>
-    fun start(query: String, lambdaItemClick: (RepositoryBriefInfoDomain) -> Unit)
+    fun start(query: String)
 }

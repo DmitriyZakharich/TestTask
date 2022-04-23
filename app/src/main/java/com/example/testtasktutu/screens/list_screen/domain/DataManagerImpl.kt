@@ -1,5 +1,6 @@
 package com.example.testtasktutu.screens.list_screen.domain
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -56,6 +57,8 @@ class DataManagerImpl(private val repositoriesInfoLoader: RepositoriesInfoLoader
     }
 
     override fun getData(login: String) {
+        Log.d("TA2222G", "DataManagerImpl getData $login")
+
         if (checkForInternet()) {
             repositoriesInfoLoader.loadRepositoriesList(login)
         } else {

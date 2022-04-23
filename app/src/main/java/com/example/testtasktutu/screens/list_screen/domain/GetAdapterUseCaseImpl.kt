@@ -3,14 +3,12 @@ package com.example.testtasktutu.screens.list_screen.domain
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.testtasktutu.screens.list_screen.viewmodel.interfaces.GetAdapterUseCase
-import com.example.testtasktutu.screens.list_screen.domain.models.ParcelRepositoryBriefInfo
-import com.example.testtasktutu.screens.list_screen.domain.models.RepositoryBriefInfoDomain
 import com.example.testtasktutu.screens.list_screen.domain.interfaces.DataManager
+import com.example.testtasktutu.screens.list_screen.domain.models.ParcelRepositoryBriefInfo
+import com.example.testtasktutu.screens.list_screen.viewmodel.interfaces.GetAdapterUseCase
 
 class GetAdapterUseCaseImpl(private val dataManager: DataManager) : GetAdapterUseCase {
 
-    private var lambdaItemClick: ((RepositoryBriefInfoDomain) -> Unit)? = null
     private var _adapter: MutableLiveData<CustomRecyclerAdapter> = MutableLiveData()
     override var adapter: LiveData<CustomRecyclerAdapter> = _adapter
 
@@ -19,12 +17,11 @@ class GetAdapterUseCaseImpl(private val dataManager: DataManager) : GetAdapterUs
     }
 
     private fun observerNetwork() = Observer<ParcelRepositoryBriefInfo> { parcel ->
-        if (parcel.isSuccess && !parcel.list.isNullOrEmpty() && lambdaItemClick != null)
-            _adapter.value = CustomRecyclerAdapter(data = parcel.list, clickListener = lambdaItemClick!!)
+        if (parcel.isSuccess && !parcel.list.isNullOrEmpty())
+            _adapter.value = CustomRecyclerAdapter(data = parcel.list)
     }
 
-    override fun start(query: String, lambdaItemClick: (RepositoryBriefInfoDomain) -> Unit) {
-        this.lambdaItemClick = lambdaItemClick
+    override fun start(query: String) {
         dataManager.getData(query)
     }
 }
