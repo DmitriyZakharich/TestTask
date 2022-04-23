@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".list_screen.presentation.ListFragment"
+    tools:context="com.example.testtasktutu.screens.list_screen.presentation.ListFragment"
     android:orientation="vertical">
 
     <SearchView

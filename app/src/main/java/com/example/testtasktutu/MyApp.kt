@@ -2,10 +2,10 @@ package com.example.testtasktutu
 
 import android.app.Application
 import android.content.Context
-import com.example.testtasktutu.details_screen.di.DaggerDetailsScreenComponent
-import com.example.testtasktutu.details_screen.di.DetailsScreenComponent
-import com.example.testtasktutu.list_screen.di.ListScreenComponent
-import com.example.testtasktutu.list_screen.di.DaggerListScreenComponent
+import com.example.testtasktutu.screens.details_screen.di.DaggerDetailsScreenComponent
+import com.example.testtasktutu.screens.details_screen.di.DetailsScreenComponent
+import com.example.testtasktutu.screens.list_screen.di.ListScreenComponent
+import com.example.testtasktutu.screens.list_screen.di.DaggerListScreenComponent
 
 class MyApp: Application() {
 

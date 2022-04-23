@@ -6,7 +6,7 @@ import com.example.testtasktutu.app_data.models.ParcelDetailsInfo
 import com.example.testtasktutu.app_data.models.ParcelRepositoriesInfo
 import com.example.testtasktutu.app_data.models.RepositoriesInfoData
 import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
-import com.example.testtasktutu.list_screen.domain.interfaces.RepositoriesInfoLoader
+import com.example.testtasktutu.screens.common_interfaces.RepositoriesInfoLoader
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
