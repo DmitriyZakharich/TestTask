@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
+import com.example.testtasktutu.databinding.FragmentDetailsBinding
 import com.example.testtasktutu.screens.details_screen.domain.model.RepositoriesInfoDomain
 import com.example.testtasktutu.screens.details_screen.presentation.interfaces.DetailsViewModel
 import com.example.testtasktutu.screens.details_screen.viewmodel.DetailsViewModelFactory
@@ -22,28 +24,41 @@ class DetailsFragment : Fragment() {
     lateinit var vmFactory: DetailsViewModelFactory
     private lateinit var viewModel: DetailsViewModel
 
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_details, container, false)
+            savedInstanceState: Bundle?): View? {
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         (requireContext().applicationContext as MyApp).detailsScreenComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory)[DetailsViewModelImpl::class.java]
-        viewModel.infoData.observe(viewLifecycleOwner, observer(view))
+        viewModel.infoData.observe(viewLifecycleOwner, observer())
 
         val login = arguments?.getString("login")
         val name = arguments?.getString("name")
         if (login != null && name != null) viewModel.getData(login, name)
     }
 
-    private fun observer(view: View) = Observer<RepositoriesInfoDomain> {
-        view.findViewById<TextView>(R.id.repository_name).text = it.name
-        view.findViewById<TextView>(R.id.description).text = it.description
-        view.findViewById<TextView>(R.id.language).text = it.language
-        view.findViewById<TextView>(R.id.stargazers_count).text = it.stargazers_count.toString()
-        view.findViewById<TextView>(R.id.updated_at).text = it.updated_at
+    private fun observer() = Observer<RepositoriesInfoDomain> {
+        binding.progressBar.visibility = View.GONE
+
+        binding.repositoryName.text = it.name
+        binding.description.text = it.description
+        binding.language.text = it.language
+        binding.stargazersCount.text = it.stargazers_count.toString()
+        binding.updatedAt.text = it.updated_at
+
+        binding.repositoryName.visibility = View.VISIBLE
+        binding.description.visibility = View.VISIBLE
+        binding.language.visibility = View.VISIBLE
+        binding.stargazersCount.visibility = View.VISIBLE
+        binding.updatedAt.visibility = View.VISIBLE
     }
 
     companion object {

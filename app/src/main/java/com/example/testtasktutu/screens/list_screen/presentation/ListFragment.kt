@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.MyApp
 import com.example.testtasktutu.R
+import com.example.testtasktutu.databinding.FragmentDetailsBinding
+import com.example.testtasktutu.databinding.FragmentListBinding
 import com.example.testtasktutu.screens.list_screen.presentation.interfaces.ListViewModel
 import com.example.testtasktutu.screens.list_screen.viewmodel.ListViewModelImpl
 import com.example.testtasktutu.screens.list_screen.viewmodel.ListViewModelFactory
@@ -22,22 +24,25 @@ class ListFragment : Fragment() {
     lateinit var vmFactory: ListViewModelFactory
     private lateinit var viewModel: ListViewModel
 
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_list, container, false)
+            savedInstanceState: Bundle?): View? {
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-        val searchView = view.findViewById<SearchView>(R.id.search_view)
 
         (requireContext().applicationContext as MyApp).listScreenComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory)[ListViewModelImpl::class.java]
         viewModel.adapter.observe(viewLifecycleOwner) {
-            recyclerView.adapter = it
+            binding.recyclerView.adapter = it
         }
 
-        searchView.setOnQueryTextListener(onQueryTextListener(searchView))
+        binding.searchView.setOnQueryTextListener(onQueryTextListener(binding.searchView))
     }
 
     private fun onQueryTextListener(searchView: SearchView) =
