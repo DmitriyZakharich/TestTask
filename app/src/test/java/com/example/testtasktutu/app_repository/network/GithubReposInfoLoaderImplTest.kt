@@ -1,9 +1,9 @@
-package com.example.testtasktutu.app_data.network
+package com.example.testtasktutu.app_repository.network
 
 import org.junit.jupiter.api.Test
 
 
-class RepositoriesInfoLoaderImplTest {
+class GithubReposInfoLoaderImplTest {
 
     @Test
     fun getLiveData() {

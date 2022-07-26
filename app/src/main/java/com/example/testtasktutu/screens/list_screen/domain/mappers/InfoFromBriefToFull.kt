@@ -1,14 +1,14 @@
 package com.example.testtasktutu.screens.list_screen.domain.mappers
 
-import com.example.testtasktutu.app_data.models.RepositoriesInfoData
-import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
+import com.example.testtasktutu.app_repository.models.GithubRepoInfoData
+import com.example.testtasktutu.app_repository.models.GithubRepoBriefInfoData
 
 class InfoFromBriefToFull {
     companion object {
-        fun convert(list: List<RepositoryBriefInfoData>?): List<RepositoriesInfoData> {
-            val listFullInfo = mutableListOf<RepositoriesInfoData>()
+        fun convert(list: List<GithubRepoBriefInfoData>?): List<GithubRepoInfoData> {
+            val listFullInfo = mutableListOf<GithubRepoInfoData>()
              list?.forEach{
-                 listFullInfo.add(RepositoriesInfoData(it.login, it.name, it.description))
+                 listFullInfo.add(GithubRepoInfoData(it.login, it.name, it.description))
             }
             return listFullInfo
         }

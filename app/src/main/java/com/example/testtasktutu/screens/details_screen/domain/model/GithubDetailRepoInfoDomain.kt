@@ -1,6 +1,6 @@
 package com.example.testtasktutu.screens.details_screen.domain.model
 
-data class RepositoriesInfoDomain(
+data class GithubDetailRepoInfoDomain(
         var login: String? = "",
         var name: String? = "",  //repository name
         var description: String? = "",

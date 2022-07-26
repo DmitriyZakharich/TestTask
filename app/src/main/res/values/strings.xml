@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">TestTaskTutu</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="repository_name">Repository name</string>
     <string name="description">Description</string>
     <string name="language">Language</string>
     <string name="stars_count">Stars count</string>
     <string name="no_data_available">No data available</string>
+    <string name="hint">Введите имя пользователя Github</string>
 </resources>

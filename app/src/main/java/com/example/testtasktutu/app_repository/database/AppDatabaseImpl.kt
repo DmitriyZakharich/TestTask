@@ -1,12 +1,12 @@
-package com.example.testtasktutu.app_data.database
+package com.example.testtasktutu.app_repository.database
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.example.testtasktutu.MyApp
-import com.example.testtasktutu.app_data.models.RepositoriesInfoData
-import com.example.testtasktutu.app_data.models.RepositoryBriefInfoData
-import com.example.testtasktutu.screens.common_interfaces.AppDatabase
+import com.example.testtasktutu.app_repository.managers_interfaces.AppDatabase
+import com.example.testtasktutu.app_repository.models.GithubRepoInfoData
+import com.example.testtasktutu.app_repository.models.GithubRepoBriefInfoData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -18,19 +18,19 @@ class AppDatabaseImpl : AppDatabase {
             "RepositoriesInfoData").fallbackToDestructiveMigration().build()
     private val repositoryInfoDao = db.getRepositoryInfoDao()
 
-    private val _repositoriesList = MutableLiveData<List<RepositoryBriefInfoData>?>()
-    override val repositoriesList: LiveData<List<RepositoryBriefInfoData>?> = _repositoriesList
+    private val _repositoriesList = MutableLiveData<List<GithubRepoBriefInfoData>?>()
+    override val repositoriesList: LiveData<List<GithubRepoBriefInfoData>?> = _repositoriesList
 
-    private val _repositoryInfo = MutableLiveData<RepositoriesInfoData?>()
-    override val repositoryInfo: LiveData<RepositoriesInfoData?> = _repositoryInfo
+    private val _repositoryInfo = MutableLiveData<GithubRepoInfoData?>()
+    override val repositoryInfo: LiveData<GithubRepoInfoData?> = _repositoryInfo
 
-    override fun loadRepositoriesList(login: String) {
+    override fun loadGithubRepositoriesList(login: String) {
         CoroutineScope(IO).launch {
-            _repositoriesList.postValue(repositoryInfoDao.getRepositoriesList(login))
+            _repositoriesList.postValue(repositoryInfoDao.getGithubReposList(login))
         }
     }
 
-    override fun updateData(login: String, listInsert: List<RepositoriesInfoData>) {
+    override fun updateData(login: String, listInsert: List<GithubRepoInfoData>) {
         CoroutineScope(IO).launch {
             repositoryInfoDao.delete(login = login)
             repositoryInfoDao.insert(list = listInsert)
@@ -40,11 +40,11 @@ class AppDatabaseImpl : AppDatabase {
     override fun loadRepositoryInfo(login: String, name: String) {
         CoroutineScope(IO).launch {
             _repositoryInfo.postValue(
-                repositoryInfoDao.getRepositoryInfo(login = login, name = name))
+                repositoryInfoDao.getGithubRepoInfo(login = login, name = name))
         }
     }
 
-    override fun updateData(detailsInfoData: RepositoriesInfoData) {
+    override fun updateData(detailsInfoData: GithubRepoInfoData) {
         val id = MutableLiveData<Int>()
         id.observeForever {
             detailsInfoData.id = it
@@ -55,7 +55,7 @@ class AppDatabaseImpl : AppDatabase {
 
         if (!detailsInfoData.login.isNullOrEmpty() && !detailsInfoData.name.isNullOrEmpty()) {
             CoroutineScope(IO).launch {
-                id.postValue(repositoryInfoDao.getRepositoryInfo(login = detailsInfoData.login!!,
+                id.postValue(repositoryInfoDao.getGithubRepoInfo(login = detailsInfoData.login!!,
                     name = detailsInfoData.name!!).id)
             }
         }

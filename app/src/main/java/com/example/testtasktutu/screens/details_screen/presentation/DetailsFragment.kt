@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.testtasktutu.MyApp
-import com.example.testtasktutu.R
 import com.example.testtasktutu.databinding.FragmentDetailsBinding
-import com.example.testtasktutu.screens.details_screen.domain.model.RepositoriesInfoDomain
+import com.example.testtasktutu.screens.details_screen.domain.model.GithubDetailRepoInfoDomain
 import com.example.testtasktutu.screens.details_screen.presentation.interfaces.DetailsViewModel
 import com.example.testtasktutu.screens.details_screen.viewmodel.DetailsViewModelFactory
 import com.example.testtasktutu.screens.details_screen.viewmodel.DetailsViewModelImpl
@@ -38,14 +35,14 @@ class DetailsFragment : Fragment() {
 
         (requireContext().applicationContext as MyApp).detailsScreenComponent.inject(this)
         viewModel = ViewModelProvider(this, vmFactory)[DetailsViewModelImpl::class.java]
-        viewModel.infoData.observe(viewLifecycleOwner, observer())
+        viewModel.info.observe(viewLifecycleOwner, observer())
 
         val login = arguments?.getString("login")
         val name = arguments?.getString("name")
         if (login != null && name != null) viewModel.getData(login, name)
     }
 
-    private fun observer() = Observer<RepositoriesInfoDomain> {
+    private fun observer() = Observer<GithubDetailRepoInfoDomain> {
         binding.progressBar.visibility = View.GONE
 
         binding.repositoryName.text = it.name
@@ -64,5 +61,10 @@ class DetailsFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance() = DetailsFragment()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

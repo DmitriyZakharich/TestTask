@@ -1,7 +1,6 @@
 package com.example.testtasktutu.screens.list_screen.domain
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,10 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
-import com.example.testtasktutu.screens.list_screen.domain.models.RepositoryBriefInfoDomain
+import com.example.testtasktutu.screens.list_screen.domain.models.GithubRepoBriefInfoDomain
 
 class CustomRecyclerAdapter(
-        private val data: List<RepositoryBriefInfoDomain>,
+        private val data: List<GithubRepoBriefInfoDomain>,
 ) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

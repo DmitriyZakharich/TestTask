@@ -1,7 +1,7 @@
-package com.example.testtasktutu.app_data.models
+package com.example.testtasktutu.app_repository.models
 
 data class ParcelDetailsInfo(
         val isSuccess: Boolean,
         val login: String,
         val name: String,
-        val detailsInfoData: RepositoriesInfoData?)
+        val detailsInfoData: GithubRepoInfoData?)

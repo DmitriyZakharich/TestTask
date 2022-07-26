@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 
 
 class GetAdapterUseCaseTest {
-
     @Test
     fun test1() {
         val expected = 4

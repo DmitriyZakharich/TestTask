@@ -1,6 +1,6 @@
 package com.example.testtasktutu.screens.list_screen.domain.models
 
-data class ParcelRepositoryBriefInfo(
+data class ParcelGithubRepoBriefInfo(
         val isSuccess: Boolean,
-        val list: List<RepositoryBriefInfoDomain>?
+        val list: List<GithubRepoBriefInfoDomain>?
 )
