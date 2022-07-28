@@ -63,9 +63,12 @@ class RepositoryManagerImpl(private val githubReposInfoLoader: GithubReposInfoLo
         if (!repositoriesList.isNullOrEmpty()) {
             _listRepos.value = ParcelGithubRepoBriefInfo(true,
                 GithubRepoInfoMapper.modelListDataToDomain(repositoriesList))
+            Toast.makeText(MyApp.applicationContext(),
+                MyApp.applicationContext().getString(R.string.data_from_db), Toast.LENGTH_SHORT)
+                .show()
 
         } else Toast.makeText(MyApp.applicationContext(),
-            MyApp.applicationContext().getString(R.string.no_data_available), Toast.LENGTH_LONG)
+            MyApp.applicationContext().getString(R.string.no_data_available), Toast.LENGTH_SHORT)
             .show()
     }
 
@@ -82,9 +85,13 @@ class RepositoryManagerImpl(private val githubReposInfoLoader: GithubReposInfoLo
             appDatabase.loadRepositoryInfo(login = it.login, name = it.name)
         }
     }
-    //Callback Details RepoInfo loader
+
+    //Callback Details RepoInfo from DB
     private fun observerDetailsRepoInfoDB() = Observer<GithubRepoInfoData?> {
         _detailRepo.value = RepositoriesInfoMapper.modelRepositoriesInfoToDomain(it)
+        Toast.makeText(MyApp.applicationContext(),
+            MyApp.applicationContext().getString(R.string.data_from_db), Toast.LENGTH_SHORT)
+            .show()
     }
 
 

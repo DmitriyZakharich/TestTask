@@ -6,5 +6,6 @@
     <string name="language">Language</string>
     <string name="stars_count">Stars count</string>
     <string name="no_data_available">No data available</string>
+    <string name="data_from_db">Data from the local database</string>
     <string name="hint">Введите имя пользователя Github</string>
 </resources>
