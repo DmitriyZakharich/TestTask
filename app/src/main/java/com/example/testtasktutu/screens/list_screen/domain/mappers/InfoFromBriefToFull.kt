@@ -13,5 +13,4 @@ class InfoFromBriefToFull {
             return listFullInfo
         }
     }
-
 }

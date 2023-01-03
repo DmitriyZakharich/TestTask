@@ -5,14 +5,16 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.testtasktutu.screens.list_screen.presentation.ListFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/teal_200">
 
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/search_view"
         android:iconifiedByDefault="false"
-        android:queryHint="@string/hint" />
+        android:queryHint="@string/hint"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
 import com.example.testtasktutu.screens.list_screen.domain.models.GithubRepoBriefInfoDomain
 
-class CustomRecyclerAdapter(
-        private val data: List<GithubRepoBriefInfoDomain>,
-) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
+class CustomRecyclerAdapter( private val data: List<GithubRepoBriefInfoDomain> )
+    : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =

@@ -1,12 +1,9 @@
 package com.example.testtasktutu.app_repository.managers_interfaces
 
-import androidx.lifecycle.LiveData
-import com.example.testtasktutu.app_repository.models.ParcelDetailsInfo
-import com.example.testtasktutu.app_repository.models.ParcelGitHubReposInfo
+import com.example.testtasktutu.app_repository.models.GithubRepoBriefInfoData
+import com.example.testtasktutu.app_repository.models.GithubRepoInfoData
 
 interface GithubReposInfoLoader {
-    val parcelDetailsInfo: LiveData<ParcelDetailsInfo>
-    val parcelRepositoryInfo: LiveData<ParcelGitHubReposInfo>
-    fun loadGithubReposList(query: String)
-    fun loadGithubRepoInfo(login: String, name: String)
+    suspend fun loadGithubReposList(query: String): List<GithubRepoBriefInfoData>
+    suspend fun loadGithubRepoInfo(login: String, name: String): GithubRepoInfoData
 }

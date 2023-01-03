@@ -15,3 +15,7 @@ data class GithubRepoInfoData(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }
+
+fun GithubRepoInfoData.isNotEmpty() =
+    login != "" && name != ""
+
