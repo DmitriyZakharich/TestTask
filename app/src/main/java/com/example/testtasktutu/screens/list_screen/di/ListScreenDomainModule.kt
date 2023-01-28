@@ -4,8 +4,8 @@ import com.example.testtasktutu.app_repository.RepositoryManagerImpl
 import com.example.testtasktutu.app_repository.managers_interfaces.AppDatabase
 import com.example.testtasktutu.app_repository.managers_interfaces.GithubReposInfoLoader
 import com.example.testtasktutu.screens.common_interfaces.RepositoryManager
-import com.example.testtasktutu.screens.list_screen.domain.GetAdapterUseCaseImpl
-import com.example.testtasktutu.screens.list_screen.viewmodel.interfaces.GetAdapterUseCase
+import com.example.testtasktutu.screens.list_screen.domain.GetListUseCaseImpl
+import com.example.testtasktutu.screens.list_screen.presentation.viewmodel.interfaces.GetListUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -17,6 +17,6 @@ class ListScreenDomainModule {
         RepositoryManagerImpl(githubReposInfoLoader, appDatabase)
 
     @Provides
-    fun provideGetAdapterUseCase(repositoryManager: RepositoryManager): GetAdapterUseCase =
-        GetAdapterUseCaseImpl(repositoryManager)
+    fun provideGetAdapterUseCase(repositoryManager: RepositoryManager): GetListUseCase =
+        GetListUseCaseImpl(repositoryManager)
 }

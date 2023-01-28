@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.list_screen.domain
+package com.example.testtasktutu.screens.list_screen.presentation.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
