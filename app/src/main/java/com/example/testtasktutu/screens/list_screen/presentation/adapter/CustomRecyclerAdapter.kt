@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testtasktutu.R
 import com.example.testtasktutu.screens.list_screen.domain.models.GithubRepoBriefInfoDomain
+import com.example.testtasktutu.screens.list_screen.presentation.intent.ListIntent
+import com.example.testtasktutu.screens.list_screen.presentation.viewmodel.ListViewModel
 
-class CustomRecyclerAdapter( private val data: List<GithubRepoBriefInfoDomain> )
+class CustomRecyclerAdapter(
+    private val data: List<GithubRepoBriefInfoDomain>,
+    private val onClick: (Bundle) -> Unit
+    )
     : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -27,9 +31,7 @@ class CustomRecyclerAdapter( private val data: List<GithubRepoBriefInfoDomain> )
             putString("login", data[position].login)
             putString("name", data[position].name)
         }
-        holder.itemView.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_listFragment_to_detailsFragment,
-                bundle))
+        holder.itemView.setOnClickListener{onClick(bundle)}
     }
 
     override fun getItemCount() = data.size

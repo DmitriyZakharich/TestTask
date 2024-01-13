@@ -5,7 +5,6 @@ plugins {
     id 'de.mannodermaus.android-junit5'
 }
 
-
 android {
     compileSdk 33
 
@@ -49,7 +48,6 @@ android {
 
 dependencies {
     ext.room_version = '2.1.0-alpha01'
-
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

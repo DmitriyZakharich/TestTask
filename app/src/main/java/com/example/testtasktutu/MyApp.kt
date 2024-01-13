@@ -26,8 +26,6 @@ class MyApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        val context: Context = applicationContext()
-
         listScreenComponent = DaggerListScreenComponent.builder().build()
         detailsScreenComponent = DaggerDetailsScreenComponent.builder().build()
     }

@@ -8,7 +8,9 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.testtasktutu.MyApp
+import com.example.testtasktutu.R
 import com.example.testtasktutu.databinding.FragmentListBinding
 import com.example.testtasktutu.screens.list_screen.presentation.adapter.CustomRecyclerAdapter
 import com.example.testtasktutu.screens.list_screen.presentation.intent.ListIntent
@@ -39,6 +41,7 @@ class ListFragment : Fragment() {
         viewModel = ViewModelProvider(this, vmFactory)[ListViewModel::class.java]
 
         observeViewModel()
+        restoringState()
 
         binding.searchView.setOnQueryTextListener(onQueryTextListener(binding.searchView))
     }
@@ -54,7 +57,7 @@ class ListFragment : Fragment() {
         }
 
     private fun observeViewModel() {
-        viewModel.repos.observe(viewLifecycleOwner) {
+        viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is ListState.Idle -> {
                     binding.progressBar.visibility = View.GONE
@@ -69,7 +72,13 @@ class ListFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
 
                     binding.recyclerView.visibility = View.VISIBLE
-                    binding.recyclerView.adapter = CustomRecyclerAdapter(it.repos)
+                    binding.recyclerView.adapter = CustomRecyclerAdapter(it.repos) { bundle ->
+                        viewModel.handleIntent(ListIntent.Navigate(bundle))
+                    }
+                }
+                is ListState.Navigate -> {
+                    findNavController().navigate(R.id.action_listFragment_to_detailsFragment,
+                        it.bundle)
                 }
                 is ListState.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -77,6 +86,10 @@ class ListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun restoringState() {
+        viewModel.handleIntent(ListIntent.RestoreState)
     }
 
     companion object {
