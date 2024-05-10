@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">TestTaskTutu</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="repository_name">Repository name</string>
-    <string name="description">Description</string>
+    <string name="user_name">User name</string>
+    <string name="user_id">User ID</string>
     <string name="language">Language</string>
     <string name="stars_count">Stars count</string>
     <string name="no_data_available">No data available</string>
     <string name="data_from_db">Data from the local database</string>
     <string name="hint">Введите имя пользователя Github</string>
+    <string name="created">Created</string>
+    <string name="repositories">Репозитории</string>
+    <string name="avatar">avatar</string>
+    <string name="location">location</string>
+    <string name="login">Login</string>
 </resources>
