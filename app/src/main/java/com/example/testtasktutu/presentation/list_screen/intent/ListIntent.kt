@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation.list_screen.intent
+package com.example.testtasktutu.presentation.list_screen.intent
 
 import android.os.Bundle
 

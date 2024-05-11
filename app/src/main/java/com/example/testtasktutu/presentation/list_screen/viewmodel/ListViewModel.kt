@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation.list_screen.viewmodel
+package com.example.testtasktutu.presentation.list_screen.viewmodel
 
 import android.os.Bundle
 import androidx.annotation.MainThread
@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.UserShort
 import com.example.domain.usecases.GetListUseCase
-import com.example.testtasktutu.screens.presentation.list_screen.intent.ListIntent
-import com.example.testtasktutu.screens.presentation.list_screen.viewstate.ListState
+import com.example.testtasktutu.presentation.list_screen.intent.ListIntent
+import com.example.testtasktutu.presentation.list_screen.viewstate.ListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

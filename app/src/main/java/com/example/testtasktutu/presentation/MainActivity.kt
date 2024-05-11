@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation
+package com.example.testtasktutu.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

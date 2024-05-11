@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation.details_screen.viewstate
+package com.example.testtasktutu.presentation.details_screen.viewstate
 
 import com.example.domain.models.UserDetails
 

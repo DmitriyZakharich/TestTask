@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation.list_screen.view
+package com.example.testtasktutu.presentation.list_screen.view
 
 import android.os.Bundle
 import android.util.Log
@@ -12,10 +12,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.testtasktutu.R
 import com.example.testtasktutu.databinding.FragmentListBinding
-import com.example.testtasktutu.screens.presentation.list_screen.adapter.CustomRecyclerAdapter
-import com.example.testtasktutu.screens.presentation.list_screen.intent.ListIntent
-import com.example.testtasktutu.screens.presentation.list_screen.viewmodel.ListViewModel
-import com.example.testtasktutu.screens.presentation.list_screen.viewstate.ListState
+import com.example.testtasktutu.presentation.list_screen.adapter.CustomRecyclerAdapter
+import com.example.testtasktutu.presentation.list_screen.intent.ListIntent
+import com.example.testtasktutu.presentation.list_screen.viewmodel.ListViewModel
+import com.example.testtasktutu.presentation.list_screen.viewstate.ListState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

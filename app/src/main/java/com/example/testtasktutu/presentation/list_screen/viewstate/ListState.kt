@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation.list_screen.viewstate
+package com.example.testtasktutu.presentation.list_screen.viewstate
 
 import android.os.Bundle
 import com.example.domain.models.UserShort

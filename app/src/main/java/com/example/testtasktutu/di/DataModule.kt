@@ -10,8 +10,6 @@ import com.example.data.network.NetworkLoaderImpl
 import com.example.data.network.RetrofitHelper
 import com.example.data.utils.ConnectionManager
 import com.example.domain.repository.RepositoryManager
-import com.example.domain.usecases.GetDetailsUseCase
-import com.example.domain.usecases.GetListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +19,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
+class DataModule {
 
     @Provides
     @Singleton
@@ -31,14 +29,6 @@ class AppModule {
         connectionManager: ConnectionManager
     ): RepositoryManager =
         RepositoryManagerImpl(networkLoader, appDatabase, connectionManager)
-
-    @Provides
-    fun provideGetListUseCase(repositoryManager: RepositoryManager): GetListUseCase =
-        GetListUseCase(repositoryManager)
-
-    @Provides
-    fun provideGetDataUseCase(repositoryManager: RepositoryManager): GetDetailsUseCase =
-        GetDetailsUseCase(repositoryManager)
 
     @Provides
     fun provideNetworkLoader(retrofitHelper: RetrofitHelper): NetworkLoader =

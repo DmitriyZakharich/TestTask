@@ -1,4 +1,4 @@
-package com.example.testtasktutu.screens.presentation.details_screen.view
+package com.example.testtasktutu.presentation.details_screen.view
 
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
 import com.example.testtasktutu.databinding.FragmentDetailsBinding
-import com.example.testtasktutu.screens.presentation.details_screen.intent.DetailsIntent
-import com.example.testtasktutu.screens.presentation.details_screen.viewstate.DetailsState
-import com.example.testtasktutu.screens.presentation.details_screen.viewmodel.DetailsViewModel
+import com.example.testtasktutu.presentation.details_screen.intent.DetailsIntent
+import com.example.testtasktutu.presentation.details_screen.viewstate.DetailsState
+import com.example.testtasktutu.presentation.details_screen.viewmodel.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
