@@ -1,6 +1,7 @@
 package com.example.testtasktutu.presentation.list_screen.viewmodel
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -37,11 +38,11 @@ class ListViewModel @Inject constructor(private val getListUseCase: GetListUseCa
         viewModelScope.launch(Dispatchers.Main) {
             _state.postValue(ListState.Loading)
             _state.postValue(try {
-                list = getListUseCase.execute(Dispatchers.IO)
+                list = getListUseCase.execute()
                 if (list.isNotEmpty()) {
                     ListState.Repos(list)
                 } else {
-                    ListState.Idle
+                    ListState.NoData
                 }
             } catch (e: Exception) {
                 ListState.Error(e.localizedMessage)
@@ -55,6 +56,8 @@ class ListViewModel @Inject constructor(private val getListUseCase: GetListUseCa
         }
     }
 
+    //Used with SingleLiveData during Fragment recreation
+    //to restore data and avoid Toast repeats
     private fun restoreState() {
         if (list.isNotEmpty()) {
             viewModelScope.launch(Dispatchers.Main) {
@@ -64,6 +67,8 @@ class ListViewModel @Inject constructor(private val getListUseCase: GetListUseCa
     }
 }
 
+//Class used to avoid Toast repeats.
+//Data is restored via restoreState() in ViewModel
 class SingleLiveData<T> : MutableLiveData<T>() {
     private val pending = AtomicBoolean()
 

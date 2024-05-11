@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.testtasktutu.R
 import com.example.domain.models.UserShort
+import com.example.testtasktutu.presentation.common.KEY_LOGIN
 
 class CustomRecyclerAdapter(
     private val data: List<UserShort>,
@@ -28,7 +29,7 @@ class CustomRecyclerAdapter(
         holder.avatar.load(data[position].avatarUrl)
 
         val bundle = Bundle().apply {
-            putString("login", data[position].login)
+            putString(KEY_LOGIN, data[position].login)
         }
         holder.itemView.setOnClickListener { onClick(bundle) }
     }

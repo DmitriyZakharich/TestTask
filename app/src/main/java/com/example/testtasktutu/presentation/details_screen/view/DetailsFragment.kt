@@ -1,7 +1,6 @@
 package com.example.testtasktutu.presentation.details_screen.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import coil.load
+import com.example.testtasktutu.R
 import com.example.testtasktutu.databinding.FragmentDetailsBinding
+import com.example.testtasktutu.presentation.common.KEY_LOGIN
 import com.example.testtasktutu.presentation.details_screen.intent.DetailsIntent
 import com.example.testtasktutu.presentation.details_screen.viewstate.DetailsState
 import com.example.testtasktutu.presentation.details_screen.viewmodel.DetailsViewModel
@@ -33,13 +34,13 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeViewModel()
-        val login = arguments?.getString("login")
+        val login = arguments?.getString(KEY_LOGIN)
         if (login != null)
             viewModel.handleIntent(DetailsIntent.FetchDetails(login = login))
     }
 
     private fun observeViewModel() {
-        viewModel.info.observe(viewLifecycleOwner) {
+        viewModel.state.observe(viewLifecycleOwner) {
             when (it) {
                 is DetailsState.Idle -> {}
                 is DetailsState.Loading -> {
@@ -58,6 +59,13 @@ class DetailsFragment : Fragment() {
                         location.text = it.data.location
                         createdAt.text = it.data.createdAt
                     }
+                }
+                is DetailsState.NoData -> {
+                    with(binding) {
+                        progressBar.visibility = View.GONE
+                        infoLayout.visibility = View.GONE
+                    }
+                    Toast.makeText(this.activity, getString(R.string.no_data_available), Toast.LENGTH_LONG).show()
                 }
                 is DetailsState.Error -> {
                     binding.progressBar.visibility = View.GONE

@@ -5,5 +5,5 @@ import com.example.domain.models.UserDetails
 
 interface RepositoryManager {
     suspend fun getUsersList(): List<UserShort>
-    suspend fun getUserDetails(login: String): UserDetails
+    suspend fun getUserDetails(login: String): UserDetails?
 }

@@ -31,10 +31,12 @@ class DataModule {
         RepositoryManagerImpl(networkLoader, appDatabase, connectionManager)
 
     @Provides
+    @Singleton
     fun provideNetworkLoader(retrofitHelper: RetrofitHelper): NetworkLoader =
         NetworkLoaderImpl(retrofitHelper)
 
     @Provides
+    @Singleton
     fun provideAppDatabase(databaseHelper: DatabaseHelper): AppDatabase =
         AppDatabaseImpl(databaseHelper)
 

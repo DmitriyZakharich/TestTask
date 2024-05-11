@@ -13,10 +13,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(private val getDetailsUseCase: GetDetailsUseCase) : ViewModel() {
+class DetailsViewModel @Inject constructor(private val getDetailsUseCase: GetDetailsUseCase) :
+    ViewModel() {
 
-    private var _info = MutableLiveData<DetailsState>()
-    val info: LiveData<DetailsState> = _info
+    private var _state = MutableLiveData<DetailsState>()
+    val state: LiveData<DetailsState> = _state
 
     fun handleIntent(intent: DetailsIntent) {
         when (intent) {
@@ -26,12 +27,19 @@ class DetailsViewModel @Inject constructor(private val getDetailsUseCase: GetDet
 
     private fun getData(login: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _info.postValue(DetailsState.Loading)
-            _info.postValue(try {
-                DetailsState.Details(getDetailsUseCase.execute(login = login))
-            } catch (e: Exception) {
-                DetailsState.Error(e.localizedMessage)
-            })
+            _state.postValue(DetailsState.Loading)
+            _state.postValue(
+                try {
+                    val data = getDetailsUseCase.execute(login = login)
+                    if (data != null) {
+                        DetailsState.Details(data = data)
+                    } else {
+                        DetailsState.NoData
+                    }
+                } catch (e: Exception) {
+                    DetailsState.Error(e.localizedMessage)
+                }
+            )
         }
     }
 }

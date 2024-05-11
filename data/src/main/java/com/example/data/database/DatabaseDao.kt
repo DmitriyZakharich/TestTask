@@ -10,10 +10,10 @@ import com.example.data.models.UserShortData
 @Dao
 interface DatabaseDao {
     @Query("SELECT * FROM users_short_data")
-    fun getListUsers(): List<UserShortData>?
+    fun getListUsers(): List<UserShortData>
 
     @Query("SELECT * FROM users_details_data WHERE login = :login")
-    fun getUserDetails(login: String): UserDetailsData
+    fun getUserDetails(login: String): UserDetailsData?
 
     @Query("DELETE FROM users_short_data WHERE login = :login")
     fun deleteUsersShortData(login: String)

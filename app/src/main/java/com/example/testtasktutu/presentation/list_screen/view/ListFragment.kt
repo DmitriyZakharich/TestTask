@@ -34,10 +34,16 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         observeViewModel()
         viewModel.handleIntent(ListIntent.FetchList)
         restoringState()
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.handleIntent(ListIntent.FetchList)
+            if(binding.swipeRefresh.isRefreshing){
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -53,11 +59,15 @@ class ListFragment : Fragment() {
                 }
                 is ListState.Repos -> {
                     binding.progressBar.visibility = View.GONE
-
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.recyclerView.adapter = CustomRecyclerAdapter(it.repos) { bundle ->
                         viewModel.handleIntent(ListIntent.Navigate(bundle))
                     }
+                }
+                is ListState.NoData -> {
+                    binding.progressBar.visibility = View.GONE
+                    binding.recyclerView.visibility = View.GONE
+                    Toast.makeText(this.activity, R.string.no_data_available, Toast.LENGTH_LONG).show()
                 }
                 is ListState.Navigate -> {
                     findNavController().navigate(R.id.action_listFragment_to_detailsFragment,
