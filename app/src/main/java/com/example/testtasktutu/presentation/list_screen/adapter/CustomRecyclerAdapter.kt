@@ -2,14 +2,11 @@ package com.example.testtasktutu.presentation.list_screen.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.testtasktutu.R
 import com.example.domain.models.UserShort
+import com.example.testtasktutu.databinding.RecyclerviewItemBinding
 import com.example.testtasktutu.presentation.common.KEY_LOGIN
 
 class CustomRecyclerAdapter(
@@ -18,27 +15,25 @@ class CustomRecyclerAdapter(
 ) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_item, parent, false)
-        return MyViewHolder(itemView)
+        val binding = RecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.repositoryName.text = data[position].login
-        holder.userId.text = data[position].id.toString()
-        holder.avatar.load(data[position].avatarUrl)
-
+        val currentData = data[position]
         val bundle = Bundle().apply {
-            putString(KEY_LOGIN, data[position].login)
+            putString(KEY_LOGIN, currentData.login)
         }
-        holder.itemView.setOnClickListener { onClick(bundle) }
+
+        holder.binding.apply {
+            login.text = currentData.login
+            userId.text = currentData.id.toString()
+            avatar.load(currentData.avatarUrl)
+            card.setOnClickListener { onClick(bundle) }
+        }
     }
 
     override fun getItemCount() = data.size
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val repositoryName: TextView = itemView.findViewById(R.id.login)
-        val userId: TextView = itemView.findViewById(R.id.user_id)
-        val avatar: ImageView = itemView.findViewById(R.id.avatar)
-    }
+    inner class MyViewHolder(val binding: RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root)
 }

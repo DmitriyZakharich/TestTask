@@ -9,10 +9,10 @@
         android:id="@+id/list_fragment"
         android:name="com.example.testtasktutu.presentation.list_screen.view.ListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
-            app:destination="@id/details_fragment" />
+            app:destination="@id/details_fragment"/>
     </fragment>
     <fragment
         android:id="@+id/details_fragment"

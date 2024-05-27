@@ -27,7 +27,7 @@
                 android:contentDescription="@string/avatar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_launcher_foreground" />
+                tools:src="@drawable/ic_launcher_foreground"/>
 
             <TextView
                 android:id="@+id/login"
@@ -79,21 +79,7 @@
                 tools:text="@string/created" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--        <TextView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            tools:text="@string/repositories"-->
-        <!--            android:textSize="25sp"/>-->
-
-        <!--        <androidx.recyclerview.widget.RecyclerView-->
-        <!--            android:id="@+id/rv_user_repositories"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"/>-->
-
     </LinearLayout>
-
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
